@@ -9,9 +9,6 @@ import { RouterLink, RouterView } from 'vue-router'
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <RouterLink class="nav-link" to="/search">Search</RouterLink>
-            </li>
-            <li class="nav-item">
               <RouterLink class="nav-link" to="/artiste">ArtisteInfo</RouterLink>
             </li>
             <li class="nav-item">
@@ -19,6 +16,11 @@ import { RouterLink, RouterView } from 'vue-router'
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link" to="/about">About</RouterLink>
+            </li>
+            <li>
+              <div>
+                <input type="text" placeholder="Search..." v-model="searchQuery">
+              </div>
             </li>
           </ul>
         </div>
