@@ -1,34 +1,22 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
 <template>
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container-fluid">
-        <RouterLink class="navbar-brand" to="/">Home</RouterLink>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <RouterLink class="nav-link" to="/artiste">ArtisteInfo</RouterLink>
-            </li>
-            <li class="nav-item">
-              <RouterLink class="nav-link" to="/titre">TitreInfo</RouterLink>
-            </li>
-            <li class="nav-item">
-              <RouterLink class="nav-link" to="/about">About</RouterLink>
-            </li>
-            <li>
-              <div>
-                <input type="text" placeholder="Search..." v-model="searchQuery">
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <RouterView />
+  <div>
+    <SearchBar @search="performSearch" />
+    <RouterView :results="searchResults" />
+  </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import SearchBar from './components/SearchBar.vue'
+import MusicBrainz from './api/MusicBrainz.js'
+
+const searchResults = ref([])
+
+const performSearch = async (query, type) => {
+  searchResults.value = await MusicBrainz.search(query, type)
+}
+</script>
+
 <style scoped>
 header {
   line-height: 1.5;

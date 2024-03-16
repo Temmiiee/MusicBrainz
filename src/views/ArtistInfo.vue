@@ -1,25 +1,18 @@
-<script>
-import axios from 'axios';
-export default {
-  data() {
-    return {
-      artistInfo: null,
-      titleInfo: null
-    };
-  },
-  methods: {
-    async fetchArtistInfo() {
-      const response = await axios.get('/api/artist');
-      this.artistInfo = response.data;
-    },
-    async fetchTitleInfo() {
-      const response = await axios.get('/api/title');
-      this.titleInfo = response.data;
-    }
-  },
-  created() {
-    this.fetchArtistInfo();
-    this.fetchTitleInfo();
-  }
-};
+<template>
+  <div>
+    <h1>{{ info.title }}</h1>
+    <!-- Afficher plus d'informations ici -->
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import MusicBrainz from '../api/MusicBrainz.js'
+
+const info = ref({})
+
+onMounted(async () => {
+  const id = router.currentRoute.value.params.id
+  info.value = await MusicBrainz.getDetails(id)
+})
 </script>
